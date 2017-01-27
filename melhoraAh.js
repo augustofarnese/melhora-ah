@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.1.1
 // @description  Adiciona informações importantes ao AH!
 // @author       Augusto Farnese
 // @match        http://ull/ah/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
+// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.js
 // ==/UserScript==
 
 (function() {
@@ -15,6 +16,13 @@
    var horasNoBancoDeHorasGeral;
    var saldoDeHorasDoMes;
    var horasTrabalhadasDoDia;
+   var dedicacaoDiaria;
+    
+   if(!localStorage.dedicacaoDiaria){
+       localStorage.dedicacaoDiaria = prompt("Quantas horas você trabalha por dia?");
+   }
+    dedicacaoDiaria = localStorage.dedicacaoDiaria;
+  
 
         $.ajax({
             url: 'http://ull/ah/Banco_de_horas.jsp',
@@ -35,8 +43,13 @@
                     success: function(data){
                        console.log($('b:last', data).parent().contents().filter(function(){return this.nodeType === 3;}));
                        var textosDaPagina = $('b:last', data).parent().contents().filter(function(){return this.nodeType === 3;});                        
-                        saldoDeHorasDoMes = parseFloat(textosDaPagina[textosDaPagina.length - 2].data);
-                        $('a[href="Banco_de_horas.jsp"]').after(' <span>(' + converteDecimalParaHoras(horasNoBancoDeHorasGeral + saldoDeHorasDoMes) + ')</span>');
+                       var estiloDoAlerta;
+                       saldoDeHorasDoMes = parseFloat(textosDaPagina[textosDaPagina.length - 2].data);
+                       console.log(Math.abs(saldoDeHorasDoMes) > dedicacaoDiaria * 2);
+                       if(Math.abs(saldoDeHorasDoMes) > dedicacaoDiaria * 2){
+                          estiloDoAlerta = saldoDeHorasDoMes > 0 ? "color:red; font-weight:bold;" : "color:blue;  font-weight:bold;";
+                       }
+                       $('a[href="Banco_de_horas.jsp"]').after(' <span style="' + estiloDoAlerta + '">(' + converteDecimalParaHoras(horasNoBancoDeHorasGeral + saldoDeHorasDoMes) + ')</span>');
                     }
                 });
             }
@@ -53,7 +66,7 @@
    });
 
    function converteDecimalParaHoras (horaDecimal) {
-       return parseInt(horaDecimal) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60)).slice(-2);;
+       return parseInt(horaDecimal) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60)).slice(-2);
    }
 
 
