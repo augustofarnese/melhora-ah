@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ull/ah/*
