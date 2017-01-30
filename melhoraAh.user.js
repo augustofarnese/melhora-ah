@@ -7,8 +7,8 @@
 // @match        http://ull/ah/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
-// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.js
-// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.js
+// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
 // ==/UserScript==
 
 (function() {
