@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.3.1
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ull/ah/*
@@ -49,8 +49,10 @@
                     success: function (data) {
                         var textosDaPagina, style;
                         textosDaPagina = $('b:last', data).parent().contents().filter(function () { return this.nodeType === 3; });
-
                         saldoDeHorasDoMes = parseFloat(textosDaPagina[textosDaPagina.length - 2].data);
+                        console.log(saldoDeHorasDoMes);
+                        saldoDeHorasDoMes += horasNoBancoDeHorasGeral;
+                        console.log(saldoDeHorasDoMes);
                         if (Math.abs(saldoDeHorasDoMes) > dedicacaoDiaria * 2) {
                             if (saldoDeHorasDoMes > 0) {
                                 style = {
@@ -65,8 +67,7 @@
                             }
                             $('#saldoBancoDeHoras').css(style);
                         }
-
-                        $('#saldoBancoDeHoras').text('(' + converteDecimalParaHoras(horasNoBancoDeHorasGeral + saldoDeHorasDoMes) + ')');
+                        $('#saldoBancoDeHoras').text('(' + converteDecimalParaHoras(saldoDeHorasDoMes) + ')');
                     }
                 });
             }
