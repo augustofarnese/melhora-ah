@@ -56,7 +56,7 @@
                         if (Math.abs(saldoDeHorasDoMes) > dedicacaoDiaria * 2) {
                             if (saldoDeHorasDoMes > 0) {
                                 style = {
-                                    color: "red",
+                                    color: "blue",
                                     fontWeight: "bold"
                                 };
                             } else {
@@ -65,9 +65,13 @@
                                     fontWeight: "bold"
                                 };
                             }
-                            $('#saldoBancoDeHoras').css(style);
+                        } else {
+                            style = {
+                                color: "black",
+                                fontWeight: "normal"
+                            };
                         }
-                        $('#saldoBancoDeHoras').text('(' + converteDecimalParaHoras(saldoDeHorasDoMes) + ')');
+                        $('#saldoBancoDeHoras').css(style).text('(' + converteDecimalParaHoras(saldoDeHorasDoMes) + ')');
                     }
                 });
             }
