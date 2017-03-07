@@ -108,7 +108,7 @@
 
         // Facilita o preenchimento das horas com duplo clique
         $('.relatorio input[type=text]').dblclick(function () {
-            if (parseInt($('input[name=horasAapropriar]').val(), 10) > 0) {
+            if (parseFloat($('input[name=horasAapropriar]').val(), 10) > 0) {
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
