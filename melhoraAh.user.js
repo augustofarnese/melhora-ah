@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3.5
+// @version      0.3.6
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ull/ah/*
@@ -22,9 +22,15 @@
     }
     dedicacaoDiaria = localStorage.dedicacaoDiaria;
 
+   
     function converteDecimalParaHoras(horaDecimal) {
-        return parseInt(horaDecimal, 10) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60, 10)).slice(-2);
+        var horasString = parseInt(horaDecimal, 10) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60, 10)).slice(-2);
+        if(horaDecimal < 0 && horaDecimal > -1) {
+            return '-' + horasString;
+        }
+        return horasString;
     }
+
 
     function verificaBancoDeHoras() {
         $.ajax({
