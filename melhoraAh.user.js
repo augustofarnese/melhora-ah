@@ -7,8 +7,8 @@
 // @match        http://ull/ah/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
-// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
-// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @updateURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
 // ==/UserScript==
 
 (function () {
@@ -118,5 +118,12 @@
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
+        for(var i = 0; i < $('td .relatorio').length; i++){
+            var comp = $('td .relatorio')[i];
+            if($(comp).html().includes('PC') && !$(comp).html().includes('Esforco') && !$(comp).html().includes('name="PC')){
+         //       console.log($(comp).html());
+                $(comp).html('<a href="https://jira.synergia.dcc.ufmg.br/browse/'+$(comp).html()+'">'+$(comp).html()+'</a>');
+            }
+        }
     });
 })();
