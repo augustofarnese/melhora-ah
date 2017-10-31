@@ -118,11 +118,13 @@
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
-        for(var i = 0; i < $('td .relatorio').length; i++){
-            var comp = $('td .relatorio')[i];
-            if($(comp).html().includes('PC') && !$(comp).html().includes('Esforco') && !$(comp).html().includes('name="PC')){
+        if($(location).attr('pathname').includes('finaliza_tarefa')){
+            for(var i = 0; i < $('td .relatorio').length; i++){
+                var comp = $('td .relatorio')[i];
+                if($(comp).html().includes('PC') && !$(comp).html().includes('Esforco') && !$(comp).html().includes('name="PC')){
          //       console.log($(comp).html());
-                $(comp).html('<a href="https://jira.synergia.dcc.ufmg.br/browse/'+$(comp).html()+'">'+$(comp).html()+'</a>');
+                    $(comp).html('<a href="https://jira.synergia.dcc.ufmg.br/browse/'+$(comp).html()+'">'+$(comp).html()+'</a>');
+                }
             }
         }
     });
