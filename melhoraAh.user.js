@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3.6
+// @version      0.3.7
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
-// @author       Augusto Farnese
+// @author       Joao Cota
 // @match        http://ull/ah/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
-// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
-// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @updateURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
 // ==/UserScript==
 
 (function () {
@@ -118,10 +118,23 @@
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
+        var verificar = function(arr, str){
+            for(var i = 0; i < arr.length; i++){
+                if(str.includes(arr[i])) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        var incluir = ['PC', 'PROC', 'WCC', 'SING', 'MYL'];
+        var excluir = ['Esforco'];
+        for(var i = 0; i < incluir.length; i++){
+            excluir.push('name="'+incluir[i]);
+        }
         if($(location).attr('pathname').includes('finaliza_tarefa')){
             for(var i = 0; i < $('td .relatorio').length; i++){
                 var comp = $('td .relatorio')[i];
-                if($(comp).html().includes('PC') && !$(comp).html().includes('Esforco') && !$(comp).html().includes('name="PC')){
+                if(verificar(incluir, $(comp).html()) && !verificar(excluir, $(comp).html())){
          //       console.log($(comp).html());
                     $(comp).html('<a href="https://jira.synergia.dcc.ufmg.br/browse/'+$(comp).html()+'">'+$(comp).html()+'</a>');
                 }
