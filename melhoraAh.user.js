@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3.6
+// @version      0.3.7
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
-// @match        http://ull/ah/*
+// @match        http://ah.synergia.dcc.ufmg.br/ah/*
 // @grant        none
-// @require http://code.jquery.com/jquery-latest.js
-// @updateURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @require      http://code.jquery.com/jquery-latest.js
+// @updateURL    https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
 // @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
 // ==/UserScript==
 
@@ -34,7 +34,7 @@
 
     function verificaBancoDeHoras() {
         $.ajax({
-            url: 'http://ull/ah/Banco_de_horas.jsp',
+            url: 'http://ah.synergia.dcc.ufmg.br/ah/Banco_de_horas.jsp',
             success: function (data) {
                 var d, mesAtual, anoAtual;
                 horasNoBancoDeHorasGeral = parseFloat($('b:last', data).parent().contents().filter(function () { return this.nodeType === 3; })[1].data);
@@ -45,7 +45,7 @@
 
                 mesAtual = ("0" + mesAtual).slice(-2); //Garante que tem 2 dígitos
                 $.ajax({
-                    url: 'http://ull/ah/horas_trabalhadas.jsp',
+                    url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas.jsp',
                     data: {
                         dataInicio: '01/' + mesAtual + '/' + anoAtual,
                         dataFim: '',
@@ -82,7 +82,7 @@
         });
 
         $.ajax({
-            url: 'http://ull/ah/horas_trabalhadas_do_dia.jsp',
+            url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas_do_dia.jsp',
             success: function (data) {
                 var textosDaPagina = $('b:last', data).parent().contents().filter(function () {return (this.nodeType === 3 && this.nodeValue.endsWith("hrs ")); });
                 horasTrabalhadasDoDia = parseFloat(textosDaPagina[0].data);
