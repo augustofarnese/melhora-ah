@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3.7
+// @version      0.3.8
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ah.synergia.dcc.ufmg.br/ah/*
@@ -247,7 +247,7 @@ color: #333  !important;
 
   function verificaSeTemTarefaAtiva(){
     $.ajax({
-      url: 'http://ull/ah/remove_tarefa.jsp',
+      url: 'http://ah.synergia.dcc.ufmg.br/ah/remove_tarefa.jsp',
       success: function (data) {
         //console.log(data);
         var textoDeNenhumaTarefaAtiva = $(data).text();
