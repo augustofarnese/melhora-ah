@@ -4,7 +4,7 @@
 // @version      0.3.7
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Joao Cota
-// @match        http://ull/ah/*
+// @match        http://ah*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // @updateURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
