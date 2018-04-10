@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         MelhoraAH
+// @name         MelhoraAH Beta
 // @namespace    http://tampermonkey.net/
-// @version      0.3.7
+// @version      0.3.8
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ah.synergia.dcc.ufmg.br/ah/*
@@ -22,7 +22,7 @@
     }
     dedicacaoDiaria = localStorage.dedicacaoDiaria;
 
-   
+
     function converteDecimalParaHoras(horaDecimal) {
         var horasString = parseInt(horaDecimal, 10) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60, 10)).slice(-2);
         if(horaDecimal < 0 && horaDecimal > -1) {
@@ -118,5 +118,16 @@
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
+
+       //Adicionar links para as tasks do Jira
+        var jiraMatcher = /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
+
+        for(var i = 0; i < $('td.relatorio').length; i++){
+            var $elemento = $(`td.relatorio:eq(${i})`);
+            var idJira = $elemento.text().match(jiraMatcher);
+            if(idJira !== null){
+                $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
+            }
+        }
     });
 })();
