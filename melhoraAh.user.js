@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         MelhoraAH
+// @name         MelhoraAH Beta
 // @namespace    http://tampermonkey.net/
-// @version      0.4.8
+// @version      0.3.8
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
-// @author       Joao Cota
-// @match        http://ah.synergia.dcc.ufmg.br/*
+// @author       Augusto Farnese
+// @match        http://ah.synergia.dcc.ufmg.br/ah/*
 // @grant        none
-// @require http://code.jquery.com/jquery-latest.js
-// @updateURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
-// @downloadURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
+// @require      http://code.jquery.com/jquery-latest.js
+// @updateURL    https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
 // ==/UserScript==
 
 (function () {
@@ -22,7 +22,7 @@
     }
     dedicacaoDiaria = localStorage.dedicacaoDiaria;
 
-   
+
     function converteDecimalParaHoras(horaDecimal) {
         var horasString = parseInt(horaDecimal, 10) + ':' + ("0" + parseInt(Math.abs(horaDecimal) % 1 * 60, 10)).slice(-2);
         if(horaDecimal < 0 && horaDecimal > -1) {
@@ -118,26 +118,15 @@
                 $(this).val($('input[name=horasAapropriar]').val());
             }
         });
-        var verificar = function(arr, str){
-            for(var i = 0; i < arr.length; i++){
-                if(str.includes(arr[i])) {
-                    return true;
-                }
-            }
-            return false;
-        };
-        var incluir = ['PC', 'PROC', 'WCC', 'SING', 'MYL'];
-        var excluir = ['Esforco'];
-        for(var i = 0; i < incluir.length; i++){
-            excluir.push('name="'+incluir[i]);
-        }
-        if($(location).attr('pathname').includes('finaliza_tarefa')){
-            for(var i = 0; i < $('td .relatorio').length; i++){
-                var comp = $('td .relatorio')[i];
-                if(verificar(incluir, $(comp).html()) && !verificar(excluir, $(comp).html())){
-         //       console.log($(comp).html());
-                    $(comp).html('<a href="https://jira.synergia.dcc.ufmg.br/browse/'+$(comp).html()+'">'+$(comp).html()+'</a>');
-                }
+
+       //Adicionar links para as tasks do Jira
+        var jiraMatcher = /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
+
+        for(var i = 0; i < $('td.relatorio').length; i++){
+            var $elemento = $(`td.relatorio:eq(${i})`);
+            var idJira = $elemento.text().match(jiraMatcher);
+            if(idJira !== null){
+                $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
             }
         }
     });
