@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.3.8
+// @version      0.4.0
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
 // @match        http://ah.synergia.dcc.ufmg.br/ah/*
@@ -274,22 +274,28 @@ color: #333  !important;
 
     verificaBancoDeHoras();
 
-        // Facilita o preenchimento das horas com duplo clique
-        $('.relatorio input[type=text]').dblclick(function () {
-            if (parseFloat($('input[name=horasAapropriar]').val(), 10) > 0) {
-                $(this).val($('input[name=horasAapropriar]').val());
-            }
-        });
-
-       //Adicionar links para as tasks do Jira
-        var jiraMatcher = /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
-
-        for(var i = 0; i < $('td.relatorio').length; i++){
-            var $elemento = $(`td.relatorio:eq(${i})`);
-            var idJira = $elemento.text().match(jiraMatcher);
-            if(idJira !== null){
-                $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
-            }
-        }
+    // Facilita o preenchimento das horas com duplo clique
+    $('.relatorio input[type=text]').dblclick(function () {
+      if (parseFloat($('input[name=horasAapropriar]').val(), 10) > 0) {
+        $(this).val($('input[name=horasAapropriar]').val());
+      }
     });
+
+    //Adicionar links para as tasks do Jira e arruma formato das horas
+    const padraoIssueJira = /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
+    const padraoHoraDecimal = /^[+-]?\d+(\.\d+)?$/;
+
+    for(var i = 0; i < $('td.relatorio').length; i++){
+      var $elemento = $(`td.relatorio:eq(${i})`);
+      var idJira = $elemento.text().match(padraoIssueJira);
+      var horaDecimal = $elemento.text().match(padraoHoraDecimal);
+      if(idJira !== null){
+        $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
+      }
+      if(horaDecimal !== null) {
+        let horaPadraoNormal = converteDecimalParaHoras(horaDecimal[0]);
+        $elemento.text(horaPadraoNormal);
+      }
+    }
+  });
 })();
