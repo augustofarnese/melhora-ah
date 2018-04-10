@@ -274,11 +274,22 @@ color: #333  !important;
 
     verificaBancoDeHoras();
 
-    // Facilita o preenchimento das horas com duplo clique
-    $('.relatorio input[type=text]').dblclick(function () {
-      if (parseFloat($('input[name=horasAapropriar]').val(), 10) > 0) {
-        $(this).val($('input[name=horasAapropriar]').val());
-      }
+        // Facilita o preenchimento das horas com duplo clique
+        $('.relatorio input[type=text]').dblclick(function () {
+            if (parseFloat($('input[name=horasAapropriar]').val(), 10) > 0) {
+                $(this).val($('input[name=horasAapropriar]').val());
+            }
+        });
+
+       //Adicionar links para as tasks do Jira
+        var jiraMatcher = /((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
+
+        for(var i = 0; i < $('td.relatorio').length; i++){
+            var $elemento = $(`td.relatorio:eq(${i})`);
+            var idJira = $elemento.text().match(jiraMatcher);
+            if(idJira !== null){
+                $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
+            }
+        }
     });
-  });
 })();
