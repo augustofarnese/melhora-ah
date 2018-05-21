@@ -185,7 +185,7 @@ color: #333  !important;
           success: function (data) {
             var textosDaPagina, style;
             textosDaPagina = $('b:last', data).parent().contents().filter(function () { return this.nodeType === 3; });
-            saldoDeHorasDoMes = parseFloat(textosDaPagina[textosDaPagina.length - 2].data);
+            saldoDeHorasDoMes = parseFloat((textosDaPagina[textosDaPagina.length - 2].data).replace(' hrs','').replace(',','.'));
             saldoDeHorasDoMes += horasNoBancoDeHorasGeral;
             if (Math.abs(saldoDeHorasDoMes) > dedicacaoDiaria * 2) {
               if (saldoDeHorasDoMes > 0) {
