@@ -4,7 +4,7 @@
 // @version      0.4.1
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
 // @author       Augusto Farnese
-// @match        http://ah.synergia.dcc.ufmg.br/ah/*
+// @match        http*://ah.synergia.dcc.ufmg.br/ah/*
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // @require      http://code.jquery.com/jquery-latest.js
