@@ -164,7 +164,7 @@ color: #333  !important;
 
   function verificaBancoDeHoras() {
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/Banco_de_horas.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/Banco_de_horas.jsp',
       success: function (data) {
         var d, mesAtual, anoAtual;
         horasNoBancoDeHorasGeral = parseFloat($('b:last', data).parent().contents().filter(function () { return this.nodeType === 3; })[1].data);
@@ -175,7 +175,7 @@ color: #333  !important;
 
         mesAtual = ("0" + mesAtual).slice(-2); //Garante que tem 2 dígitos
         $.ajax({
-          url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas.jsp',
+          url: '//ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas.jsp',
           data: {
             dataInicio: '01/' + mesAtual + '/' + anoAtual,
             dataFim: '',
@@ -212,7 +212,7 @@ color: #333  !important;
     });
 
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas_do_dia.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas_do_dia.jsp',
       success: function (data) {
         var textosDaPagina = $('b:last', data).parent().contents().filter(function () {return (this.nodeType === 3 && this.nodeValue.endsWith("hrs ")); });
         var horaDeInicio = $('b:last', data).parent().contents().filter(function () {return (this.nodeType === 3); });
@@ -247,7 +247,7 @@ color: #333  !important;
 
   function verificaSeTemTarefaAtiva(){
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/remove_tarefa.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/remove_tarefa.jsp',
       success: function (data) {
         //console.log(data);
         var textoDeNenhumaTarefaAtiva = $(data).text();
@@ -290,7 +290,7 @@ color: #333  !important;
       var idJira = $elemento.text().match(padraoIssueJira);
       var horaDecimal = $elemento.text().match(padraoHoraDecimal);
       if(idJira !== null){
-        $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
+        $elemento.wrapInner(`<a href="//jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
       }
       if(horaDecimal !== null) {
         let horaPadraoNormal = converteDecimalParaHoras(horaDecimal[0]);
