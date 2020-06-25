@@ -1,4 +1,4 @@
-# Melhorias AH
+# Melhora AH
 
 Este projeto é simplesmente um script para implementar algumas melhorias na ferramenta interna de apropriação de horas.
 
