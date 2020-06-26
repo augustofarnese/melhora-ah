@@ -1,16 +1,16 @@
 // ==UserScript==
 // @name         MelhoraAH
 // @namespace    http://tampermonkey.net/
-// @version      0.4.1
+// @version      0.5.2
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
-// @author       Augusto Farnese
-// @match        http://ah.synergia.dcc.ufmg.br/ah/*
+// @author       Augusto Farnese e JMMCCota
+// @match        http*://ah.synergia.dcc.ufmg.br/ah/*
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // @require      http://code.jquery.com/jquery-latest.js
 // @resource     animateCSS https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css
-// @updateURL    https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
-// @downloadURL  https://raw.githubusercontent.com/augustofarnese/melhora-ah/master/melhoraAh.user.js
+// @updateURL    https://raw.githubusercontent.com/synergia-labs/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/synergia-labs/melhora-ah/master/melhoraAh.user.js
 // @run-at document-start
 // ==/UserScript==
 
@@ -164,7 +164,7 @@ color: #333  !important;
 
   function verificaBancoDeHoras() {
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/Banco_de_horas.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/Banco_de_horas.jsp',
       success: function (data) {
         var d, mesAtual, anoAtual;
         horasNoBancoDeHorasGeral = parseFloat($('b:last', data).parent().contents().filter(function () { return this.nodeType === 3; })[1].data);
@@ -175,7 +175,7 @@ color: #333  !important;
 
         mesAtual = ("0" + mesAtual).slice(-2); //Garante que tem 2 dígitos
         $.ajax({
-          url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas.jsp',
+          url: '//ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas.jsp',
           data: {
             dataInicio: '01/' + mesAtual + '/' + anoAtual,
             dataFim: '',
@@ -212,7 +212,7 @@ color: #333  !important;
     });
 
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas_do_dia.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/horas_trabalhadas_do_dia.jsp',
       success: function (data) {
         var textosDaPagina = $('b:last', data).parent().contents().filter(function () {return (this.nodeType === 3 && this.nodeValue.endsWith("hrs ")); });
         var horaDeInicio = $('b:last', data).parent().contents().filter(function () {return (this.nodeType === 3); });
@@ -247,7 +247,7 @@ color: #333  !important;
 
   function verificaSeTemTarefaAtiva(){
     $.ajax({
-      url: 'http://ah.synergia.dcc.ufmg.br/ah/remove_tarefa.jsp',
+      url: '//ah.synergia.dcc.ufmg.br/ah/remove_tarefa.jsp',
       success: function (data) {
         //console.log(data);
         var textoDeNenhumaTarefaAtiva = $(data).text();
@@ -290,7 +290,7 @@ color: #333  !important;
       var idJira = $elemento.text().match(padraoIssueJira);
       var horaDecimal = $elemento.text().match(padraoHoraDecimal);
       if(idJira !== null){
-        $elemento.wrapInner(`<a href="https://jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
+        $elemento.wrapInner(`<a href="//jira.synergia.dcc.ufmg.br/browse/${idJira[0]}"></a>`);
       }
       if(horaDecimal !== null) {
         let horaPadraoNormal = converteDecimalParaHoras(horaDecimal[0]);
