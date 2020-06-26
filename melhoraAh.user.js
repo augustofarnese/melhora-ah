@@ -3,14 +3,14 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.5.2
 // @description  Para facilitar a gestão do banco de horas, o MelhoraAH adiciona ao menu do AH informações sobre o banco de horas e as horas trabalhadas no dia.
-// @author       JMMCCota
+// @author       Augusto Farnese e JMMCCota
 // @match        http*://ah.synergia.dcc.ufmg.br/ah/*
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // @require      http://code.jquery.com/jquery-latest.js
 // @resource     animateCSS https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css
-// @updateURL    https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
-// @downloadURL  https://raw.githubusercontent.com/jmmccota/melhora-ah/master/melhoraAh.user.js
+// @updateURL    https://raw.githubusercontent.com/synergia-labs/melhora-ah/master/melhoraAh.user.js
+// @downloadURL  https://raw.githubusercontent.com/synergia-labs/melhora-ah/master/melhoraAh.user.js
 // @run-at document-start
 // ==/UserScript==
 
